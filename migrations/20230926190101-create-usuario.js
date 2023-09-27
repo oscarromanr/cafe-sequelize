@@ -12,13 +12,25 @@ module.exports = {
       nombre: {
         type: Sequelize.STRING
       },
-      correoElectronico: {
+      email: {
         type: Sequelize.STRING
       },
       contraseña: {
         type: Sequelize.STRING
       },
       rol: {
+        type: Sequelize.STRING
+      },
+      calle: {
+        type: Sequelize.STRING
+      },
+      numerocasa: {
+        type: Sequelize.STRING
+      },
+      colonia: {
+        type: Sequelize.STRING
+      }, 
+      telefono: {
         type: Sequelize.STRING
       },
       createdAt: {

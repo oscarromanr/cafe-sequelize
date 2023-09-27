@@ -21,6 +21,12 @@ module.exports = {
       stock: {
         type: Sequelize.INTEGER
       },
+      categoria: {
+        type: Sequelize.STRING
+      },
+      imagenurl: {
+        type: Sequelize.STRING
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
