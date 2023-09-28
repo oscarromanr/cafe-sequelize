@@ -11,11 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // Relacion uno a uno con Usuario
-<<<<<<< HEAD:models/carritos.js
       Carrito.hasOne(models.Usuarios, {foreignKey: 'id'});
-=======
-      Carrito.hasOne(models.Usuario, {foreignKey: 'id'});
->>>>>>> fd8dd7a02281eb34cdfdf861195332d94c20fbb3:models/carrito.js
     }
   }
   Carrito.init({

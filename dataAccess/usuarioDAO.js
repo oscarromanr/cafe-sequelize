@@ -33,11 +33,7 @@ class UsuarioDAO {
 
     async obtenerUsuarioPorID(id) {
         try {
-<<<<<<< HEAD
             const usuario = await models.Usuarios.findByPk(id);
-=======
-            const usuario = await Usuario.findByPk(id);
->>>>>>> fd8dd7a02281eb34cdfdf861195332d94c20fbb3
             return usuario;
         } catch (error) {
             return error;
@@ -67,12 +63,7 @@ class UsuarioDAO {
 
     async eliminarUsuario(id) {
         try {
-<<<<<<< HEAD
             const usuarioEliminar = await models.Usuarios.findByPk(id);
-=======
-            const usuarioEliminar = await Usuario.findByPk(id);
-
->>>>>>> fd8dd7a02281eb34cdfdf861195332d94c20fbb3
             if (!usuarioEliminar) {
                 throw new Error('El usuario no fue encontrado.')
             }

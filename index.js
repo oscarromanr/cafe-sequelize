@@ -1,6 +1,5 @@
 const { sequelize } = require('./models');
 const UsuarioDAO = require('./dataAccess/usuarioDAO');
-<<<<<<< HEAD
 const AdministradorDAO = require('./dataAccess/administradorDAO');
 const ProductoDAO = require('./dataAccess/productoDAO');
 const PagoDAO = require('./dataAccess/pagoDAO');
@@ -8,9 +7,6 @@ const Usuario = require('./entities/Usuario');
 const Administrador = require('./entities/Administrador');
 const Producto = require('./entities/Producto');
 const Pago = require('./entities/Pago');
-=======
-const Usuario = require('./entities/Usuario')
->>>>>>> fd8dd7a02281eb34cdfdf861195332d94c20fbb3
 
 async function ejecutarTransacciones() {
 
@@ -62,17 +58,10 @@ async function ejecutarTransacciones() {
             console.log('Lista de usuarios: ', usuarios)
 
             console.log('---Busqueda de usuario con id 1---')
-<<<<<<< HEAD
 
             const usuarioBusqueda = await UsuarioDAO.obtenerUsuarioPorID(1);
 
             if (usuarioBusqueda != null) {
-=======
-            
-            const usuarioBusqueda = await UsuarioDAO.obtenerUsuarioPorID(1);
-
-            if (usuarioBusqueda != null){
->>>>>>> fd8dd7a02281eb34cdfdf861195332d94c20fbb3
                 console.log('Busqueda exitosa: ', usuarioBusqueda)
 
             } else {
@@ -92,12 +81,7 @@ async function ejecutarTransacciones() {
                 "9995558888"
             );
 
-<<<<<<< HEAD
             const usuarioActualizar = await UsuarioDAO.actualizarUsuario(1, usuarioNuevo);
-=======
-            const usuarioActualizar = await UsuarioDAO.actualizarUsuario(2, usuario2);
-            console.log('Usuario actualizado: ', usuarioActualizar)
->>>>>>> fd8dd7a02281eb34cdfdf861195332d94c20fbb3
 
             if (usuarioActualizar != null) {
                 console.log('Usuario actualizado: ', usuarioActualizar)
