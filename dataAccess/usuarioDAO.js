@@ -52,15 +52,10 @@ class UsuarioDAO {
             const colonia = usuario.colonia;
             const telefono = usuario.telefono;
 
-            const usuarioActualizar = await Usuario.findByPK(id);
-
-            if (!usuarioActualizar) {
-                throw new Error('Usuario no encontrado.')
-            }
-
-            await usuarioActualizar.update({ nombre, correoElectronico, contraseña, rol, calle, numerocasa, colonia, telefono }, { where: { id } })
-            return 'Usuario actualizado con éxito';
-
+            await Usuario.update({ nombre, correoElectronico, contraseña, rol, calle, numerocasa, colonia, telefono }, { where: { id } });
+            const usuarioActualizado = await Usuario.findByPk(id);
+            return usuarioActualizado;
+            
         } catch (error) {
             return error;
         }
