@@ -11,7 +11,11 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // Relacion muchos a uno con Usuario
+<<<<<<< HEAD:models/ordenes.js
+      Orden.belongsTo(models.Usuarios, {foreignKey: 'id'});
+=======
       Orden.belongsTo(models.Usuario, {foreignKey: 'id'});
+>>>>>>> fd8dd7a02281eb34cdfdf861195332d94c20fbb3:models/orden.js
     }
   }
   Orden.init({
@@ -24,7 +28,7 @@ module.exports = (sequelize, DataTypes) => {
     metodoPago: DataTypes.STRING
   }, {
     sequelize,
-    modelName: 'Orden',
+    modelName: 'Ordenes',
   });
   return Orden;
 };

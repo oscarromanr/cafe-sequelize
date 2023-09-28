@@ -1,4 +1,4 @@
-const { Pago } = require('../models');
+const models = require('../models');
 
 class PagoDAO {
     constructor() { };
@@ -10,7 +10,7 @@ class PagoDAO {
             const metodoPago = pago.metodoPago;
             const fechaPago = pago.fechaPago;
 
-            const nuevoPago = await Pago.create({ idUsuario, monto, metodoPago, fechaPago });
+            const nuevoPago = await models.Pagos.create({ idUsuario, monto, metodoPago, fechaPago });
             return nuevoPago;
         } catch (error) {
             throw error;
@@ -19,7 +19,7 @@ class PagoDAO {
 
     async obtenerPagos() {
         try {
-            const pagos = await Pago.findAll();
+            const pagos = await models.Pagos.findAll();
             return pagos;
         } catch (error) {
             throw error;
@@ -28,7 +28,7 @@ class PagoDAO {
 
     async obtenerPagosPorId(id) {
         try {
-            const pagos = await Pago.findByPk(id);
+            const pagos = await models.Pagos.findByPk(id);
             return pagos;
         } catch (error) {
             throw error;
@@ -42,8 +42,8 @@ class PagoDAO {
             const metodoPago = pago.metodoPago;
             const fechaPago = pago.fechaPago;
 
-            await Pago.update({ idUsuario, monto, metodoPago, fechaPago }, { where: { id } });
-            const pagoActualizado = await Pago.findByPk(id);
+            await models.Pagos.update({ idUsuario, monto, metodoPago, fechaPago }, { where: { id } });
+            const pagoActualizado = await models.Pagos.findByPk(id);
             return pagoActualizado;
         } catch (error) {
             throw error;
@@ -52,12 +52,13 @@ class PagoDAO {
 
     async eliminarPago(id) {
         try {
-            const pago = await Pago.findByPk(id);
-            if (!pago) {
-                throw new Error('Pago no encontrado');
+            const pagoEliminar = await models.Pagos.findByPk(id);
+
+            if (!pagoEliminar) {
+                throw new Error('El pago no fue encontrado.');
             }
-            await pago.destroy();
-            return 'Pago eliminado con exito';
+            await pagoEliminar.destroy();
+            return pagoEliminar;
         } catch (error) {
             throw error;
         }

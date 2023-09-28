@@ -1,6 +1,5 @@
 class Pago {
-    constructor(id, idUsuario, monto, metodoPago, fechaPago){
-        this.id = id;
+    constructor(idUsuario, monto, metodoPago, fechaPago){
         this.idUsuario = idUsuario;
         this.monto = monto;
         this.metodoPago = metodoPago;
