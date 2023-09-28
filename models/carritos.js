@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // Relacion uno a uno con Usuario
-      Carrito.hasOne(models.Usuario, {foreignKey: 'id'});
+      Carrito.hasOne(models.Usuarios, {foreignKey: 'id'});
     }
   }
   Carrito.init({
@@ -20,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
     total: DataTypes.DECIMAL
   }, {
     sequelize,
-    modelName: 'Carrito',
+    modelName: 'Carritos',
   });
   return Carrito;
 };

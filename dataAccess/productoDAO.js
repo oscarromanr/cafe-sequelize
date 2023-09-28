@@ -1,4 +1,4 @@
-const { Producto } = require('../models');
+const models = require('../models');
 
 class ProductoDAO {
     constructor() { }
@@ -13,7 +13,7 @@ class ProductoDAO {
             const categoria = producto.categoria;
             const imagenurl = producto.imagenurl;
 
-            const nuevoProducto = await Producto.create({ nombre, descripcion, precio, stock, categoria, imagenurl });
+            const nuevoProducto = await models.Productos.create({ nombre, descripcion, precio, stock, categoria, imagenurl });
             return nuevoProducto;
         } catch (error) {
             return error;
@@ -22,7 +22,7 @@ class ProductoDAO {
 
     async obtenerProductos() {
         try {
-            const productos = await Producto.findAll();
+            const productos = await models.Productos.findAll();
             return productos;
         } catch (error) {
             return error;
@@ -31,7 +31,7 @@ class ProductoDAO {
 
     async obtenerProductoPorID(id) {
         try {
-            const producto = await Producto.findByPK(id);
+            const producto = await models.Productos.findByPk(id);
             return producto;
         } catch (error) {
             return error;
@@ -48,14 +48,9 @@ class ProductoDAO {
             const categoria = producto.categoria;
             const imagenurl = producto.imagenurl;
 
-            const productoActualizar = await Producto.findByPK(id);
-
-            if (!productoActualizar) {
-                throw new Error('Producto no encontrado.')
-            }
-
-            await productoActualizar.update({ nombre, descripcion, precio, stock, categoria, imagenurl }, { where: { id } })
-            return 'Producto actualizado con éxito';
+            await models.Productos.update({ nombre, descripcion, precio, stock, categoria, imagenurl }, { where: { id } });
+            const productoActualizar = await models.Productos.findByPk(id);
+            return productoActualizar;
 
         } catch (error) {
             return error;
@@ -64,13 +59,13 @@ class ProductoDAO {
 
     async eliminarProducto(id) {
         try {
-            const productoEliminar = await Producto.findByPK(id);
+            const productoEliminar = await models.Productos.findByPk(id);
 
             if (!productoEliminar) {
-                throw new Error('No se encontro el producto')
+                throw new Error('El producto no fue encontrado.')
             }
             await productoEliminar.destroy();
-            return 'Producto eliminado con éxito';
+            return productoEliminar;
         } catch (error) {
             return error;
         }

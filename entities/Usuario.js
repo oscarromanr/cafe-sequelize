@@ -1,8 +1,8 @@
 class Usuario {
-    constructor(nombre, correoElectronico, contraseña, rol, calle, numerocasa, colonia, telefono){
+    constructor(nombre, email, password, rol, calle, numerocasa, colonia, telefono){
         this.nombre = nombre;
-        this.correoElectronico = correoElectronico;
-        this.contraseña = contraseña;
+        this.email = email;
+        this.password = password;
         this.rol = rol;
         this.calle = calle;
         this.numerocasa = numerocasa;

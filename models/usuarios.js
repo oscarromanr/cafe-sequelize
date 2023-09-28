@@ -11,9 +11,9 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // Relacion uno a muchos con Orden, Pago y uno a uno con Carrito
-      Usuario.hasMany(models.Orden, {foreignKey: 'idUsuario'});
-      Usuario.hasOne(models.Carrito, {foreignKey: 'idUsuario'});
-      Usuario.hasMany(models.Pago, {foreignKey: 'idUsuario'});
+      Usuario.hasMany(models.Ordenes, {foreignKey: 'idUsuario'});
+      Usuario.hasOne(models.Carritos, {foreignKey: 'idUsuario'});
+      Usuario.hasMany(models.Pagos, {foreignKey: 'idUsuario'});
 
     }
   }
@@ -24,8 +24,8 @@ module.exports = (sequelize, DataTypes) => {
       autoIncrement: true
     },
     nombre: DataTypes.STRING,
-    correoElectronico: DataTypes.STRING,
-    contraseña: DataTypes.STRING,
+    email: DataTypes.STRING,
+    password: DataTypes.STRING,
     rol: DataTypes.STRING,
     calle: DataTypes.STRING,
     numerocasa: DataTypes.STRING,
@@ -33,7 +33,7 @@ module.exports = (sequelize, DataTypes) => {
     telefono: DataTypes.STRING,
   }, {
     sequelize,
-    modelName: 'Usuario',
+    modelName: 'Usuarios',
   });
   return Usuario;
 };
