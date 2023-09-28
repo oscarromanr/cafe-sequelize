@@ -1,4 +1,4 @@
-const { Usuario } = require('../models');
+const models = require('../models');
 
 class UsuarioDAO {
     constructor() { }
@@ -7,15 +7,15 @@ class UsuarioDAO {
         try {
 
             const nombre = usuario.nombre;
-            const correoElectronico = usuario.correoElectronico;
-            const contraseña = usuario.contraseña;
+            const email = usuario.email;
+            const password = usuario.password;
             const rol = usuario.rol;
             const calle = usuario.calle;
             const numerocasa = usuario.numerocasa;
             const colonia = usuario.colonia;
             const telefono = usuario.telefono;
 
-            const nuevoUsuario = await Usuario.create({ nombre, correoElectronico, contraseña, rol, calle, numerocasa, colonia, telefono });
+            const nuevoUsuario = await models.Usuarios.create({ nombre, email, password, rol, calle, numerocasa, colonia, telefono });
             return nuevoUsuario;
         } catch (error) {
             return error;
@@ -24,7 +24,7 @@ class UsuarioDAO {
 
     async obtenerUsuarios() {
         try {
-            const usuarios = await Usuario.findAll();
+            const usuarios = await models.Usuarios.findAll();
             return usuarios;
         } catch (error) {
             return error;
@@ -33,7 +33,7 @@ class UsuarioDAO {
 
     async obtenerUsuarioPorID(id) {
         try {
-            const usuario = await Usuario.findByPk(id);
+            const usuario = await models.Usuarios.findByPk(id);
             return usuario;
         } catch (error) {
             return error;
@@ -44,16 +44,16 @@ class UsuarioDAO {
         try {
 
             const nombre = usuario.nombre;
-            const correoElectronico = usuario.correoElectronico;
-            const contraseña = usuario.contraseña;
+            const email = usuario.email;
+            const password = usuario.password;
             const rol = usuario.rol;
             const calle = usuario.calle;
             const numerocasa = usuario.numerocasa;
             const colonia = usuario.colonia;
             const telefono = usuario.telefono;
 
-            await Usuario.update({ nombre, correoElectronico, contraseña, rol, calle, numerocasa, colonia, telefono }, { where: { id } });
-            const usuarioActualizado = await Usuario.findByPk(id);
+            await models.Usuarios.update({ nombre, email, password, rol, calle, numerocasa, colonia, telefono }, { where: { id } });
+            const usuarioActualizado = await models.Usuarios.findByPk(id);
             return usuarioActualizado;
             
         } catch (error) {
@@ -63,15 +63,14 @@ class UsuarioDAO {
 
     async eliminarUsuario(id) {
         try {
-            const usuarioEliminar = await Usuario.findByPk(id);
-
+            const usuarioEliminar = await models.Usuarios.findByPk(id);
             if (!usuarioEliminar) {
-                throw new Error('No se encontro el usuario')
+                throw new Error('El usuario no fue encontrado.')
             }
             await usuarioEliminar.destroy();
-            return 'Usuario eliminado con éxito';
+            return usuarioEliminar;
         } catch (error) {
-            return error;
+            throw error;
         }
     }
 

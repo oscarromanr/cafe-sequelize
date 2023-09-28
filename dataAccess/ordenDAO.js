@@ -1,4 +1,4 @@
-const { Orden } = require('../models');
+const models = require('../models');
 
 class OrdenDAO {
     constructor(){};
@@ -13,7 +13,7 @@ class OrdenDAO {
             const direccionEnvio = orden.direccionEnvio;
             const metodoPago = orden.metodoPago;
 
-            const nuevaOrden = await Orden.create({ idUsuario, fechaOrden, estado, total, productos, direccionEnvio, metodoPago });
+            const nuevaOrden = await models.Ordenes.create({ idUsuario, fechaOrden, estado, total, productos, direccionEnvio, metodoPago });
             return nuevaOrden;
         } catch (error) {
             throw error;
@@ -22,7 +22,7 @@ class OrdenDAO {
 
     async obtenerOrdenes() {
         try {
-            const ordenes = await Orden.findAll();
+            const ordenes = await models.Ordenes.findAll();
             return ordenes;
         } catch (error) {
             throw error;
@@ -31,7 +31,7 @@ class OrdenDAO {
 
     async obtenerOrdenesPorId(id) {
         try {
-            const ordenes = await Orden.findByPk(id);
+            const ordenes = await models.Ordenes.findByPk(id);
             return ordenes;
         } catch (error) {
             throw error;
@@ -48,9 +48,10 @@ class OrdenDAO {
             const direccionEnvio = orden.direccionEnvio;
             const metodoPago = orden.metodoPago;
 
-            await Orden.update({ idUsuario, fechaOrden, estado, total, productos, direccionEnvio, metodoPago }, {where: {id}});
-            const ordenActualizada = await Orden.findByPk(id);
+            await models.Ordenes.update({ idUsuario, fechaOrden, estado, total, productos, direccionEnvio, metodoPago }, {where: {id}});
+            const ordenActualizada = await models.Ordenes.findByPk(id);
             return ordenActualizada;
+
         } catch (error) {
             throw error;
         }
@@ -58,12 +59,12 @@ class OrdenDAO {
 
     async eliminarOrden(id){
         try {
-            const orden = await Orden.findByPk(id);
+            const orden = await models.Ordenes.findByPk(id);
             if (!orden){
                 throw new Error('No se encontro la orden');
             }
             await orden.destroy();
-            return 'Orden eliminada';
+            return orden;
         } catch (error) {
             throw error;
         }

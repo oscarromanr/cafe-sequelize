@@ -1,6 +1,5 @@
 class Orden {
-    constructor(id, idUsuario, fechaOrden, estado, total, productos, direccionEnvio, metodoPago){
-        this.id = id;
+    constructor(idUsuario, fechaOrden, estado, total, productos, direccionEnvio, metodoPago){
         this.idUsuario = idUsuario;
         this.fechaOrden = fechaOrden;
         this.estado = estado;
