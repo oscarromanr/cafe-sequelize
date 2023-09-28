@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // Relacion muchos a uno con Usuario
-      Orden.belongsTo(models.Usuario, {foreignKey: 'idUsuario'});
+      Orden.belongsTo(models.Usuario, {foreignKey: 'id'});
     }
   }
   Orden.init({

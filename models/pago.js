@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // Relacion muchos a uno con Usuario
-      Pago.belongsTo(models.Usuario, {foreignKey: 'idUsuario'});
+      Pago.belongsTo(models.Usuario, {foreignKey: 'id'});
     }
   }
   Pago.init({

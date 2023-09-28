@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // Relacion uno a uno con Usuario
-      Carrito.hasOne(models.Usuario, {foreignKey: 'idUsuario'});
+      Carrito.hasOne(models.Usuario, {foreignKey: 'id'});
     }
   }
   Carrito.init({
