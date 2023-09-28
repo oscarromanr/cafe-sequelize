@@ -33,7 +33,7 @@ class UsuarioDAO {
 
     async obtenerUsuarioPorID(id) {
         try {
-            const usuario = await Usuario.findByPK(id);
+            const usuario = await Usuario.findByPk(id);
             return usuario;
         } catch (error) {
             return error;
@@ -63,7 +63,7 @@ class UsuarioDAO {
 
     async eliminarUsuario(id) {
         try {
-            const usuarioEliminar = await Usuario.findByPK(id);
+            const usuarioEliminar = await Usuario.findByPk(id);
 
             if (!usuarioEliminar) {
                 throw new Error('No se encontro el usuario')

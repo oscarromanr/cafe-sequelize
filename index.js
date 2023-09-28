@@ -1,6 +1,6 @@
 const { sequelize } = require('./models');
 const UsuarioDAO = require('./dataAccess/usuarioDAO');
-const { Usuario } = require('./entities/usuario')
+const Usuario = require('./entities/Usuario')
 
 async function ejecutarTransacciones() {
 
@@ -52,10 +52,10 @@ async function ejecutarTransacciones() {
 
             console.log('---Busqueda de usuario con id 1---')
             
-            const usuarioBusqueda = await UsuarioDAO.obtenerUsuarioPorId(1);
+            const usuarioBusqueda = await UsuarioDAO.obtenerUsuarioPorID(1);
 
-            if (usuario != null){
-                console.log('Busqueda exitosa: ', usuarioEncontrado)
+            if (usuarioBusqueda != null){
+                console.log('Busqueda exitosa: ', usuarioBusqueda)
 
             } else {
                 console.log('No se encontró el usuario con el ID especificado.')
@@ -74,7 +74,7 @@ async function ejecutarTransacciones() {
                 "9995558888"
             );
 
-            const usuarioActualizar = await UsuarioDAO.actualizarUsuario(25, usuario2);
+            const usuarioActualizar = await UsuarioDAO.actualizarUsuario(2, usuario2);
             console.log('Usuario actualizado: ', usuarioActualizar)
 
             //Falta la prueba de eliminar del usuario
