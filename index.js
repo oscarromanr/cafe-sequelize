@@ -3,10 +3,12 @@ const UsuarioDAO = require('./dataAccess/usuarioDAO');
 const AdministradorDAO = require('./dataAccess/administradorDAO');
 const ProductoDAO = require('./dataAccess/productoDAO');
 const PagoDAO = require('./dataAccess/pagoDAO');
+const OrdenDAO = require('./dataAccess/ordenDAO');
 const Usuario = require('./entities/Usuario');
 const Administrador = require('./entities/Administrador');
 const Producto = require('./entities/Producto');
 const Pago = require('./entities/Pago');
+const Orden = require('./entities/Orden');
 
 async function ejecutarTransacciones() {
 
@@ -340,6 +342,112 @@ async function ejecutarTransacciones() {
 
         // Orden
         // TODO
+        try {
+            console.log('--------Pruebas de OrdenDAO--------');
+            const producto1 = new Producto(
+                "Cafe Organico Tostado 250 gr",
+                "Presentación de 250 gramos. Cosechado en los altos de la Sierra de Zongolica, de manera artesanal por manos de indígenas nahuatl. Café Tatiaxca de grano arabiga y tueste medio, con gran aroma, cuerpo y acidez. Excelente calidad 100% Orgánico.",
+                199.99,
+                20,
+                "Cafe en grano",
+                "https://example.com/imagen-producto1.jpg"
+            );
+            const producto2 = new Producto(
+                "Cafe Organico Tostado 500 gr",
+                "Presentación de 500 gramos. Cosechado en los altos de la Sierra de Zongolica, de manera artesanal por manos de indígenas nahuatl. Café Tatiaxca de grano arabiga y tueste medio, con gran aroma, cuerpo y acidez. Excelente calidad 100% Orgánico.",
+                379.99,
+                15,
+                "Cafe en grano",
+                "https://example.com/imagen-producto2.jpg"
+            );
+
+            const producto3 = new Producto(
+                "Cafe Organico Tostado 1 kg",
+                "Presentación de 1000 gramos. Cosechado en los altos de la Sierra de Zongolica, de manera artesanal por manos de indígenas nahuatl. Café Tatiaxca de grano arabiga y tueste medio, con gran aroma, cuerpo y acidez. Excelente calidad 100% Orgánico.",
+                699.99,
+                32,
+                "Cafe en grano",
+                "https://example.com/imagen-producto3.jpg"
+            );
+
+            const producto4 = new Producto(
+                "Cupcakes de chocolate",
+                "Pack de 12 cupcakes de chocolate con betun de queso crema y rodeado de chispas de chocolate, excelente opcion para compartir en cualquier evento familiar.",
+                240,
+                12,
+                "Reposteria",
+                "https://example.com/imagen-producto4.jpg"
+            );
+
+            const orden1 = new Orden(
+                2,
+                new Date(),
+                "bueno",
+                300.50,
+                [{producto1, producto2}],
+                "San Marcos 1890",
+                "tarjeta"
+            );
+            const orden2 = new Orden(
+                3,
+                new Date(),
+                "Mas o menos",
+                250.50,
+                [{producto1, producto2, producto3}],
+                "San Luis 1890",
+                "tarjeta"
+            );
+            const orden3 = new Orden(
+                3,
+                new Date(),
+                "malo",
+                699.90,
+                [{producto1, producto2, producto3, producto4}],
+                "San Lazaro 1790",
+                "tarjeta"
+            );
+
+            await OrdenDAO.crearOrden(orden1);
+            await OrdenDAO.crearOrden(orden2);
+            await OrdenDAO.crearOrden(orden3);
+
+            console.log('Ordenes creadas');
+            
+            console.log('Consultar ordenes');
+            const ordenes = await OrdenDAO.obtenerOrdenes();
+            console.log('Ordenes: ', ordenes);
+
+            console.log('Obtener oren por id')
+            const ordenBuscar = await OrdenDAO.obtenerOrdenesPorId(1);
+            if (ordenBuscar == null){
+                console.log('Error no se encontro la orden')
+            }
+            console.log('Orden: ', ordenBuscar);
+
+            console.log('Actualizar Orden');
+            const nuevaOrden = new Orden(
+                2,
+                new Date(),
+                "Excelente",
+                300.50,
+                [{producto1, producto2}],
+                "San Marcos 1690",
+                "tarjeta"
+            );
+            await OrdenDAO.actualizarOrden(1, nuevaOrden);
+            ordenBuscar = await OrdenDAO.obtenerOrdenesPorId(1);
+            console.log('Nueva orden: ', ordenBuscar);
+
+            console.log('Eliminar orden');
+            await OrdenDAO.eliminarOrden(2);
+            ordenes = await OrdenDAO.obtenerOrdenes();
+            console.log('Ordenes actualizadas: ', ordenes);
+            console.log('---> Finalización de pruebas de Ordenes <---');
+
+
+        } catch (error) {
+            
+        }
 
         // Carrito
         // TODO

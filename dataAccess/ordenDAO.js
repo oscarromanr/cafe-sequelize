@@ -63,7 +63,7 @@ class OrdenDAO {
             if (!orden){
                 throw new Error('No se encontro la orden');
             }
-            await orden.destroy();
+            await models.Ordenes.destroy({where: {id}});
             return orden;
         } catch (error) {
             throw error;
