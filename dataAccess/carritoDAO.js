@@ -54,8 +54,8 @@ class CarritoDAO {
             if (!carrito){
                 throw new Error('No se encontro el carrito');
             }
-            await carrito.destroy();
-            return carrito;
+            await models.Carritos.destroy({where: {id}});
+            return 'Se elimino el carrito';
         } catch (error) {
             throw error;
         }

@@ -4,11 +4,13 @@ const AdministradorDAO = require('./dataAccess/administradorDAO');
 const ProductoDAO = require('./dataAccess/productoDAO');
 const PagoDAO = require('./dataAccess/pagoDAO');
 const OrdenDAO = require('./dataAccess/ordenDAO');
+const CarritoDAO = require('./dataAccess/carritoDAO');
 const Usuario = require('./entities/Usuario');
 const Administrador = require('./entities/Administrador');
 const Producto = require('./entities/Producto');
 const Pago = require('./entities/Pago');
 const Orden = require('./entities/Orden');
+const Carrito = require('./entities/Carrito');
 
 async function ejecutarTransacciones() {
 
@@ -16,7 +18,7 @@ async function ejecutarTransacciones() {
         await sequelize.sync()
 
         // Usuarios
-        try {
+        /*try {
             console.log('--------Pruebas de UsuariosDAO--------')
             const usuario1 = new Usuario(
                 "LaPiñataLoca",
@@ -446,11 +448,103 @@ async function ejecutarTransacciones() {
 
 
         } catch (error) {
-            
-        }
+            throw error;
+        }*/
 
         // Carrito
         // TODO
+        try {
+            console.log('--------Pruebas de CarritoDAO--------');
+            const producto1 = new Producto(
+                "Cafe Organico Tostado 250 gr",
+                "Presentación de 250 gramos. Cosechado en los altos de la Sierra de Zongolica, de manera artesanal por manos de indígenas nahuatl. Café Tatiaxca de grano arabiga y tueste medio, con gran aroma, cuerpo y acidez. Excelente calidad 100% Orgánico.",
+                199.99,
+                20,
+                "Cafe en grano",
+                "https://example.com/imagen-producto1.jpg"
+            );
+            const producto2 = new Producto(
+                "Cafe Organico Tostado 500 gr",
+                "Presentación de 500 gramos. Cosechado en los altos de la Sierra de Zongolica, de manera artesanal por manos de indígenas nahuatl. Café Tatiaxca de grano arabiga y tueste medio, con gran aroma, cuerpo y acidez. Excelente calidad 100% Orgánico.",
+                379.99,
+                15,
+                "Cafe en grano",
+                "https://example.com/imagen-producto2.jpg"
+            );
+
+            const producto3 = new Producto(
+                "Cafe Organico Tostado 1 kg",
+                "Presentación de 1000 gramos. Cosechado en los altos de la Sierra de Zongolica, de manera artesanal por manos de indígenas nahuatl. Café Tatiaxca de grano arabiga y tueste medio, con gran aroma, cuerpo y acidez. Excelente calidad 100% Orgánico.",
+                699.99,
+                32,
+                "Cafe en grano",
+                "https://example.com/imagen-producto3.jpg"
+            );
+
+            const producto4 = new Producto(
+                "Cupcakes de chocolate",
+                "Pack de 12 cupcakes de chocolate con betun de queso crema y rodeado de chispas de chocolate, excelente opcion para compartir en cualquier evento familiar.",
+                240,
+                12,
+                "Reposteria",
+                "https://example.com/imagen-producto4.jpg"
+            );
+
+            const carrito1 = new Carrito(
+                2,
+                [{producto1, producto2}],
+                300.50
+            );
+            const carrito2 = new Carrito(
+                3,
+                [{producto1, producto2, producto3}],
+                250.50
+            );
+            const carrito3 = new Carrito(
+                3,
+                [{producto1, producto2, producto3, producto4}],
+                699.90
+            );
+
+            await CarritoDAO.crearCarrito(carrito1);
+            await CarritoDAO.crearCarrito(carrito2);
+            await CarritoDAO.crearCarrito(carrito3);
+
+            console.log('Carritos creados');
+
+            console.log('Consultando carritos');
+            let carritos = await CarritoDAO.obtenerCarritos();
+            console.log('Carritos: ', carritos);
+
+            console.log('Obtener por id');
+            let carrito = await CarritoDAO.obtenerCarritosPorId(1);
+            console.log('Carrito buscado', carrito);
+
+            console.log('Actualizar carrito');
+            const nuevoCarrito = new Carrito(
+                3,
+                [{producto1, producto2, producto3}],
+                280.50
+            );
+            const carritoActualizado = await CarritoDAO.actualizarCarrito(7, nuevoCarrito);
+            console.log('Carrito actualizado', carritoActualizado);
+
+            console.log('Eliminar un carrito');
+            const text = await CarritoDAO.eliminarCarrito(9);
+            carrito = await CarritoDAO.obtenerCarritosPorId(9);
+            if (carrito != null){
+                console.log('Error al eliminar el carrito')
+            } else {
+                console.log(text)
+            }
+            carritos = await CarritoDAO.obtenerCarritos();
+            console.log('Carritos actualizados ', carritos);
+            console.log('---> Finalización de pruebas de Carritos <---');
+
+        } catch (error) {
+            throw error;
+        }
+
     } catch (error) {
         console.error('Error en la ejecución de transacciones: ', error)
     } finally {

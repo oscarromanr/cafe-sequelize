@@ -64,7 +64,7 @@ class OrdenDAO {
                 throw new Error('No se encontro la orden');
             }
             await models.Ordenes.destroy({where: {id}});
-            return orden;
+            return 'Se elimino la orden';
         } catch (error) {
             throw error;
         }
